@@ -7,7 +7,6 @@ public class Yatzy1 {
     }
 
     public Yatzy1(int d1, int d2, int d3, int d4, int d5) {
-        this();
         dice = new int[5];
         dice[0] = d1;
         dice[1] = d2;
@@ -16,11 +15,11 @@ public class Yatzy1 {
         dice[4] = d5;
     }
 
-    public static int chance(int d1, int d2, int d3, int d4, int d5) {
-        return d1 + d2 + d3 + d4 + d5;
+    public int chance() {
+        return dice[0] + dice[1] + dice[2] + dice[3] + dice[4];
     }
 
-    public static int yatzy(int... dice) {
+    public int yatzy() {
         int[] counts = new int[6];
         for (int die : dice)
             counts[die - 1]++;
@@ -30,16 +29,16 @@ public class Yatzy1 {
         return 0;
     }
 
-    public static int ones(int d1, int d2, int d3, int d4, int d5) {
-        return compareAndSumByValue(1, new int[]{d1, d2, d3, d4, d5});
+    public int ones() {
+        return compareAndSumByValue(1, dice);
     }
 
-    public static int twos(int d1, int d2, int d3, int d4, int d5) {
-        return compareAndSumByValue(2, new int[]{d1, d2, d3, d4, d5});
+    public int twos() {
+        return compareAndSumByValue(2, dice);
     }
 
-    public static int threes(int d1, int d2, int d3, int d4, int d5) {
-        return compareAndSumByValue(3, new int[]{d1, d2, d3, d4, d5});
+    public int threes() {
+        return compareAndSumByValue(3, dice);
     }
 
     public int fours() {
@@ -187,16 +186,6 @@ public class Yatzy1 {
             return _2_at * 2 + _3_at * 3;
         else
             return 0;
-    }
-
-    private static int sumByValue(int d1, int d2, int d3, int d4, int d5, int value) {
-        int sum = 0;
-        if (d1 == value) sum += value;
-        if (d2 == value) sum += value;
-        if (d3 == value) sum += value;
-        if (d4 == value) sum += value;
-        if (d5 == value) sum += value;
-        return sum;
     }
 
     private static int compareAndSumByValue(int value, int[] dice) {
