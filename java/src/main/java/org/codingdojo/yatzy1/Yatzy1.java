@@ -31,15 +31,15 @@ public class Yatzy1 {
     }
 
     public static int ones(int d1, int d2, int d3, int d4, int d5) {
-        return sumByValue(d1, d2, d3, d4, d5, 1);
+        return compareAndSumByValue(1, new int[]{d1, d2, d3, d4, d5});
     }
 
     public static int twos(int d1, int d2, int d3, int d4, int d5) {
-        return sumByValue(d1, d2, d3, d4, d5, 2);
+        return compareAndSumByValue(2, new int[]{d1, d2, d3, d4, d5});
     }
 
     public static int threes(int d1, int d2, int d3, int d4, int d5) {
-        return sumByValue(d1, d2, d3, d4, d5, 3);
+        return compareAndSumByValue(3, new int[]{d1, d2, d3, d4, d5});
     }
 
     public int fours() {
@@ -199,7 +199,7 @@ public class Yatzy1 {
         return sum;
     }
 
-    private int compareAndSumByValue(int value, int[] dice) {
+    private static int compareAndSumByValue(int value, int[] dice) {
         int sum = 0;
         for (int die : dice) {
             if (die == value) {
