@@ -93,8 +93,8 @@ public class Yatzy1 {
 
     public int fullHouse() {
         int[] tallies = getCounts(dice);
-        FoundValue foundValueOf2 = getByValue(tallies, 2);
-        FoundValue foundValueOf3 = getByValue(tallies, 3);
+        FoundValue foundValueOf2 = findByValue(tallies, 2);
+        FoundValue foundValueOf3 = findByValue(tallies, 3);
         if (foundValueOf2.value() && foundValueOf3.value()) {
             return foundValueOf2.index() * 2 + foundValueOf3.index() * 3;
         } else {
@@ -129,7 +129,7 @@ public class Yatzy1 {
         return counts;
     }
 
-    private static FoundValue getByValue(int[] tallies, int value) {
+    private static FoundValue findByValue(int[] tallies, int value) {
         boolean foundValue = false;
         int indexOfFoundValue = 0;
         for (int i = 0; i < 6; i += 1) {
