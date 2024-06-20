@@ -81,27 +81,14 @@ public class Yatzy1 {
 
 
     public int smallStraight() {
-        int[] tallies = getCounts(dice);
-        if (tallies[0] == 1 &&
-            tallies[1] == 1 &&
-            tallies[2] == 1 &&
-            tallies[3] == 1 &&
-            tallies[4] == 1) {
-            return 15;
-        }
-        return 0;
+        return Arrays.stream(getCounts(dice))
+            .limit(5)
+            .allMatch(count -> count == 1) ? 15 : 0;
     }
 
     public int largeStraight() {
-        int[] tallies = getCounts(dice);
-        if (tallies[1] == 1 &&
-            tallies[2] == 1 &&
-            tallies[3] == 1 &&
-            tallies[4] == 1
-            && tallies[5] == 1) {
-            return 20;
-        }
-        return 0;
+        return Arrays.stream(getCounts(dice), 1, 6)
+            .allMatch(count -> count == 1) ? 20 : 0;
     }
 
     public int fullHouse() {
@@ -130,6 +117,7 @@ public class Yatzy1 {
 
     /**
      * Counts the occurrences of each value in the array.
+     *
      * @param dice int array of values
      * @return array
      */
@@ -159,6 +147,7 @@ public class Yatzy1 {
     /**
      * Validate the dice array.
      * Each die value should be between 1 and 6.
+     *
      * @param dice int array of values
      */
     private void validateDice(int[] dice) {
