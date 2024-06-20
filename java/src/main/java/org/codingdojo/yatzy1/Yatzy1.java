@@ -23,11 +23,14 @@ public class Yatzy1 {
 
     public int yatzy() {
         int[] counts = new int[6];
-        for (int die : dice)
+        for (int die : dice) {
             counts[die - 1]++;
-        for (int count : counts)
-            if (count == 5)
+        }
+        for (int count : counts) {
+            if (count == 5) {
                 return 50;
+            }
+        }
         return 0;
     }
 
