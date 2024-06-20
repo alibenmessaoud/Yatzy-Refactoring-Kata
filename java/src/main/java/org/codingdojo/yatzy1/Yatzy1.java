@@ -6,15 +6,12 @@ public class Yatzy1 {
     protected int[] dice;
 
     public Yatzy1() {
+        dice = new int[]{1, 1, 1, 1, 1};
     }
 
     public Yatzy1(int d1, int d2, int d3, int d4, int d5) {
-        dice = new int[5];
-        dice[0] = d1;
-        dice[1] = d2;
-        dice[2] = d3;
-        dice[3] = d4;
-        dice[4] = d5;
+        dice = new int[]{d1, d2, d3, d4, d5};
+        validateDice(dice);
     }
 
     public int chance() {
@@ -123,9 +120,9 @@ public class Yatzy1 {
     }
 
     private static int scoreByNumber(int[] counts, int number) {
-        for (int i = 0; i < 6; i++) {
-            if (counts[6 - i - 1] >= number) {
-                return (6 - i) * number;
+        for (int i = 5; i >= 0; i--) {
+            if (counts[i] >= number) {
+                return (i + 1) * number;
             }
         }
         return 0;
@@ -152,6 +149,12 @@ public class Yatzy1 {
     }
 
     private record FoundValue(boolean value, int index) {
+    }
+
+    private void validateDice(int[] dice) {
+        if (Arrays.stream(dice).anyMatch(die -> die < 1 || die > 6)) {
+            throw new IllegalArgumentException("All dice must have values between 1 and 6.");
+        }
     }
 }
 
