@@ -1,6 +1,5 @@
 package org.codingdojo;
 
-import org.codingdojo.YatzyCalculator;
 import org.codingdojo.yatzy2.Yatzy2;
 import org.codingdojo.yatzy3.Yatzy3;
 import org.junit.jupiter.params.ParameterizedTest;
