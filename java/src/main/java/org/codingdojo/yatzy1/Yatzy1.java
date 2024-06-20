@@ -128,6 +128,11 @@ public class Yatzy1 {
         return 0;
     }
 
+    /**
+     * Counts the occurrences of each value in the array.
+     * @param dice int array of values
+     * @return array
+     */
     private static int[] getCounts(int[] dice) {
         int[] counts = new int[6];
         for (int die : dice) {
@@ -151,6 +156,11 @@ public class Yatzy1 {
     private record FoundValue(boolean value, int index) {
     }
 
+    /**
+     * Validate the dice array.
+     * Each die value should be between 1 and 6.
+     * @param dice int array of values
+     */
     private void validateDice(int[] dice) {
         if (Arrays.stream(dice).anyMatch(die -> die < 1 || die > 6)) {
             throw new IllegalArgumentException("All dice must have values between 1 and 6.");
