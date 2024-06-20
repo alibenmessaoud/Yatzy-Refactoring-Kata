@@ -22,16 +22,8 @@ public class Yatzy1 {
     }
 
     public int yatzy() {
-        int[] counts = new int[6];
-        for (int die : dice) {
-            counts[die - 1]++;
-        }
-        for (int count : counts) {
-            if (count == 5) {
-                return 50;
-            }
-        }
-        return 0;
+        return Arrays.stream(getCounts(dice))
+            .anyMatch(count -> count == 5) ? 50 : 0;
     }
 
     public int ones() {
@@ -58,23 +50,23 @@ public class Yatzy1 {
         return compareAndSumByValue(6, dice);
     }
 
-    public int scorePair(int d1, int d2, int d3, int d4, int d5) {
-        int[] counts = getCounts(d1, d2, d3, d4, d5);
+    public int scorePair() {
+        int[] counts = getCounts(dice);
         return scoreByNumber(counts, 2);
     }
 
-    public static int fourOfAKind(int d1, int d2, int d3, int d4, int d5) {
-        int[] counts = getCounts(d1, d2, d3, d4, d5);
+    public int fourOfAKind() {
+        int[] counts = getCounts(dice);
         return scoreByNumber(counts, 4);
     }
 
-    public static int threeOfAKind(int d1, int d2, int d3, int d4, int d5) {
-        int[] counts = getCounts(d1, d2, d3, d4, d5);
+    public int threeOfAKind() {
+        int[] counts = getCounts(dice);
         return scoreByNumber(counts, 3);
     }
 
-    public static int twoPair(int d1, int d2, int d3, int d4, int d5) {
-        int[] counts = getCounts(d1, d2, d3, d4, d5);
+    public int twoPair() {
+        int[] counts = getCounts(dice);
         int pairCount = 0;
         int score = 0;
         for (int i = 5; i >= 0; i--) {
@@ -91,8 +83,8 @@ public class Yatzy1 {
     }
 
 
-    public static int smallStraight(int d1, int d2, int d3, int d4, int d5) {
-        int[] tallies = getCounts(d1, d2, d3, d4, d5);
+    public int smallStraight() {
+        int[] tallies = getCounts(dice);
         if (tallies[0] == 1 &&
             tallies[1] == 1 &&
             tallies[2] == 1 &&
@@ -103,8 +95,8 @@ public class Yatzy1 {
         return 0;
     }
 
-    public static int largeStraight(int d1, int d2, int d3, int d4, int d5) {
-        int[] tallies = getCounts(d1, d2, d3, d4, d5);
+    public int largeStraight() {
+        int[] tallies = getCounts(dice);
         if (tallies[1] == 1 &&
             tallies[2] == 1 &&
             tallies[3] == 1 &&
@@ -115,30 +107,15 @@ public class Yatzy1 {
         return 0;
     }
 
-    public static int fullHouse(int d1, int d2, int d3, int d4, int d5) {
-        int[] tallies = getCounts(d1, d2, d3, d4, d5);
-        FoundValue foundValueOf2 = getResult(tallies, 2);
-        FoundValue foundValueOf3 = getResult(tallies, 3);
+    public int fullHouse() {
+        int[] tallies = getCounts(dice);
+        FoundValue foundValueOf2 = getByValue(tallies, 2);
+        FoundValue foundValueOf3 = getByValue(tallies, 3);
         if (foundValueOf2.value() && foundValueOf3.value()) {
             return foundValueOf2.index() * 2 + foundValueOf3.index() * 3;
         } else {
             return 0;
         }
-    }
-
-    private static FoundValue getResult(int[] tallies, int value) {
-        boolean foundValue = false;
-        int indexOfFoundValue = 0;
-        for (int i = 0; i < 6; i += 1) {
-            if (tallies[i] == value) {
-                foundValue = true;
-                indexOfFoundValue = i + 1;
-            }
-        }
-        return new FoundValue(foundValue, indexOfFoundValue);
-    }
-
-    private record FoundValue(boolean value, int index) {
     }
 
     private static int compareAndSumByValue(int value, int[] dice) {
@@ -154,14 +131,27 @@ public class Yatzy1 {
         return 0;
     }
 
-    private static int[] getCounts(int d1, int d2, int d3, int d4, int d5) {
+    private static int[] getCounts(int[] dice) {
         int[] counts = new int[6];
-        counts[d1 - 1]++;
-        counts[d2 - 1]++;
-        counts[d3 - 1]++;
-        counts[d4 - 1]++;
-        counts[d5 - 1]++;
+        for (int die : dice) {
+            counts[die - 1]++;
+        }
         return counts;
+    }
+
+    private static FoundValue getByValue(int[] tallies, int value) {
+        boolean foundValue = false;
+        int indexOfFoundValue = 0;
+        for (int i = 0; i < 6; i += 1) {
+            if (tallies[i] == value) {
+                foundValue = true;
+                indexOfFoundValue = i + 1;
+            }
+        }
+        return new FoundValue(foundValue, indexOfFoundValue);
+    }
+
+    private record FoundValue(boolean value, int index) {
     }
 }
 
