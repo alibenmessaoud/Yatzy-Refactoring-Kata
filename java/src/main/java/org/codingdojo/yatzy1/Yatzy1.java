@@ -23,8 +23,8 @@ public class Yatzy1 {
         int[] counts = new int[6];
         for (int die : dice)
             counts[die - 1]++;
-        for (int i = 0; i != 6; i++)
-            if (counts[i] == 5)
+        for (int count : counts)
+            if (count == 5)
                 return 50;
         return 0;
     }
@@ -60,8 +60,7 @@ public class Yatzy1 {
         counts[d3 - 1]++;
         counts[d4 - 1]++;
         counts[d5 - 1]++;
-        int at;
-        for (at = 0; at != 6; at++) {
+        for (int at = 0; at != 6; at++) {
             if (counts[6 - at - 1] >= 2) {
                 return (6 - at) * 2;
             }
