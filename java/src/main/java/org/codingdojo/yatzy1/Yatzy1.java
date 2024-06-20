@@ -72,11 +72,7 @@ public class Yatzy1 {
                 score += (i + 1);
             }
         }
-        if (pairCount == 2) {
-            return score * 2;
-        } else {
-            return 0;
-        }
+        return pairCount == 2 ? score * 2 : 0;
     }
 
 
@@ -103,7 +99,10 @@ public class Yatzy1 {
     }
 
     private static int compareAndSumByValue(int value, int[] dice) {
-        return Arrays.stream(dice).filter(die -> die == value).map(die -> value).sum();
+        return Arrays.stream(dice)
+            .filter(die -> die == value)
+            .map(die -> value)
+            .sum();
     }
 
     private static int scoreByNumber(int[] counts, int number) {
